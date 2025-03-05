@@ -1,0 +1,13 @@
+# This is a Dockerfile that sets up a Node.js environment for running a Node.js application
+# This tells Docker to use the official Node.js image as the base image.
+FROM node
+
+# Copies all files from your project directory to the container's working directory.
+COPY . .
+
+# Runs npm install inside the container to install all dependencies listed in package.json.
+RUN npm install
+
+# This specifies the command to execute when the container starts.
+# It runs node index.js, which means it starts your Node.js application.
+CMD [ "node", "index.js" ]
