@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: my_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: foobarbaz
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  my-app:
+    image: my-app
+    container_name: my-app-container
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      PORT: 4000
+      DATABASE_URL: postgres://postgres:foobarbaz@postgres:5432/postgres
+    ports:
+      - "4000:4000" 
+
+volumes:
+  postgres_data:
